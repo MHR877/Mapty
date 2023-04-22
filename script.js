@@ -409,7 +409,7 @@ class App {
     if (!e.target.classList.contains('cancel')) {
       const work = this.#workouts.find(w => +w.id == workoutEl.getAttribute("data-id"))
       this.#map.setView(work.coords, 14);
-      if (!e.target.classList.contains('edit-btn')) {
+      if (!e.target.classList.contains('edit-btn') || !e.target.classList.contains('cancel-btn')) {
         this._showSideBar('close')
       }
     }
