@@ -331,8 +331,10 @@ class App {
           </div>
         </div>
         <div class="confirm none-cw">
-          <button class="confirm__btn-yes">yes</button>
-          <button class="confirm__btn-no">no</button>
+            <span class="confirm_dng">&#x26A0;</span>
+            <span class="confirm_text">Are you sure you want to continue?</span>
+            <button class="confirm__btn-yes">yes</button>
+            <button class="confirm__btn-no">no</button>
         </div>
         <form class="form-edit hidden">
           <div class="form__row">
