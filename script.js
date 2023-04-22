@@ -96,7 +96,6 @@ class App {
 
     const coords = [latitude, longitude]
 
-    console.log(coords);
     this.#map = L.map('map').setView([33.9164, 2.5379], 14);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.#map);
@@ -118,6 +117,10 @@ class App {
     if(type == 'close') {
       sidebar.classList.add('none')
       navBtn.classList.remove('nav-btn-active')
+    }
+    if(type == 'no') {
+      sidebar.classList.remove('none')
+      navBtn.classList.add('nav-btn-active')
     }
   }
   _showForm(e) {
@@ -193,6 +196,7 @@ class App {
     if (e.target.classList.contains('edit-btn')) {
       frm.classList.toggle('hidden')
       parent.classList.toggle('none-cw')
+      
     }
     if (e.target.classList.contains('form__btn-cancel')) {
       e.target.parentNode.classList.add('hidden')
@@ -233,7 +237,7 @@ class App {
         if (!validInput(updateWorkout.distance, updateWorkout.duration, updateWorkout.cadence) ||
           !allPositive((updateWorkout.distance, updateWorkout.duration, updateWorkout.cadence))
         ) {
-          console.log('Input have to be positive number!')
+          alert('Input have to be positive number!')
         } else {
           listWorkout = JSON.stringify(listWorkout);
           localStorage.setItem("workouts", listWorkout);
@@ -243,7 +247,7 @@ class App {
         if (!validInput(updateWorkout.distance, updateWorkout.duration, updateWorkout.elev) ||
           !allPositive((updateWorkout.distance, updateWorkout.duration))
         ) {
-          console.log('Input have to be positive number!')
+          alert('Input have to be positive number!')
         } else {
           listWorkout = JSON.stringify(listWorkout);
           localStorage.setItem("workouts", listWorkout);
@@ -405,7 +409,9 @@ class App {
     if (!e.target.classList.contains('cancel')) {
       const work = this.#workouts.find(w => +w.id == workoutEl.getAttribute("data-id"))
       this.#map.setView(work.coords, 14);
-      this._showSideBar('close')
+      if (!e.target.classList.contains('edit-btn')) {
+        this._showSideBar('close')
+      }
     }
   }
   _setLocalStorage() {
@@ -484,8 +490,6 @@ class App {
         x.classList.remove('hidden')
       })
     }
-    console.log(this.#workouts);
-    console.log(e.target);
   }
   reset() {
     localStorage.removeItem('workouts')
@@ -493,5 +497,3 @@ class App {
   }
 }
 const app = new App()
-
-// app.reset()
